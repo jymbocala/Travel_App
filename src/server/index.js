@@ -17,12 +17,12 @@ app.use(bodyParser.json());
 const cors = require('cors');
 app.use(cors());
 
-app.use(express.static('src/client'));
+app.use(express.static("dist"));
 
 console.log(__dirname)
 
 app.get('/', function (req, res) {
-    res.sendFile('/client/html/index.html', { root: __dirname + '/..' })
+  res.sendFile("dist/index.html");
 })
 
 // Setup Server
