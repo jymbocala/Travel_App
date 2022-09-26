@@ -4,19 +4,21 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 
 module.exports = {
+    mode: 'production',
     entry: './src/client/index.js',
     module: {
         rules: [
-                {
-            test: /\.js$/,
-            exclude: /node_modules/,
-            loader: "babel-loader"
-                }
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                loader: "babel-loader"
+            },
+            
         ]
     },
     plugins: [
         new HtmlWebPackPlugin({
-            template: "./src/client/views/index.html",
+            template: "./src/client/html/index.html",
             filename: "./index.html",
         })
     ]
