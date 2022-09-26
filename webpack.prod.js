@@ -10,7 +10,7 @@ module.exports = {
     mode: 'production',
     entry: './src/client/index.js',
     optimization: {
-        minimizer: [new TerserPlugin({}),new OptimizeCSSAssetsPlugin({})],
+        minimizer: [new TerserPlugin({}),new CssMinimizerPlugin({})],
     },
     module: {
         rules: [
