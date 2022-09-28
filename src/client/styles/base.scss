@@ -10,85 +10,85 @@ $dark: #100F0F;
 
 
 body{
-    background: #fffde4;
-    font-family: 'Roboto', sans-serif;
+    background: $light;
+    // font-family: 'Roboto', sans-serif;
     margin: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#app{
-    display: flex;
-    flex-direction: column;
-    min-height:100vh;
-    width: 50%;
-    color: rgb(22, 22, 22);
-    margin: 0 50px;
-    text-align: center;
-}
+// #app{
+//     display: flex;
+//     flex-direction: column;
+//     min-height:100vh;
+//     width: 50%;
+//     color: rgb(22, 22, 22);
+//     margin: 0 50px;
+//     text-align: center;
+// }
 
-h1.headline {
-    margin-top: 5rem;
-    margin-bottom: 2.5rem;
-}
+// h1.headline {
+//     margin-top: 5rem;
+//     margin-bottom: 2.5rem;
+// }
 
-.entry{
-    background: rgba(123, 123, 123, 0.4);
-}
+// .entry{
+//     background: rgba(123, 123, 123, 0.4);
+// }
 
-form {
-    margin-top: 2.5rem;
-    margin-bottom: 2.5rem;
-}
+// form {
+//     margin-top: 2.5rem;
+//     margin-bottom: 2.5rem;
+// }
 
 
 
-/*  Basic Styling To Override Default For Basic HTML Elements */
-label{
-    display:block;
-    font-size: 1.875rem;
-    margin-bottom: 20px;
-}
+// /*  Basic Styling To Override Default For Basic HTML Elements */
+// label{
+//     display:block;
+//     font-size: 1.875rem;
+//     margin-bottom: 20px;
+// }
 
-label#feelings-label {
-    margin-top: 50px;
-}
+// label#feelings-label {
+//     margin-top: 50px;
+// }
 
-input{
-    display:block;
-    height: 60px;
-    width: 100%;
-    background:#fff;
-    font-size: 1rem;
-    font-style: italic;
-    padding: 10px;
-    border: grey 0.5px solid;
-}
+// input{
+//     display:block;
+//     height: 60px;
+//     width: 100%;
+//     background:#fff;
+//     font-size: 1rem;
+//     font-style: italic;
+//     padding: 10px;
+//     border: grey 0.5px solid;
+// }
 
-button{
-    width: 30%;
-    height: 70px;
-    background: #0d6efd;
-    box-shadow: 2px 4px 5px #444;
-    color: white;
-    font-size: 1.2rem;
-    border-radius: 12px;
-    font-weight: bold;
-    margin-top: 50px;
-    cursor: pointer;
-    border: none;
-}
+// button{
+//     width: 30%;
+//     height: 70px;
+//     background: #0d6efd;
+//     box-shadow: 2px 4px 5px #444;
+//     color: white;
+//     font-size: 1.2rem;
+//     border-radius: 12px;
+//     font-weight: bold;
+//     margin-top: 50px;
+//     cursor: pointer;
+//     border: none;
+// }
 
-textarea{
-    display: block;
-    background:#fff;
-    font-size: 1rem;
-    padding: 10px;
-    width: 100%;
-    font-style: italic;
-    border: grey 0.5px solid;
-}
+// textarea{
+//     display: block;
+//     background:#fff;
+//     font-size: 1rem;
+//     padding: 10px;
+//     width: 100%;
+//     font-style: italic;
+//     border: grey 0.5px solid;
+// }
 
 /* Reset style for HTML element on active to have no border*/
 input:focus,
