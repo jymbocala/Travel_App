@@ -12,11 +12,44 @@ $dark: #100F0F;
 body{
     background: $light;
     // font-family: 'Roboto', sans-serif;
+    min-height: 100vh ;
     margin: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    // align-items: center;
+    // justify-content: space-between ;
 }
+
+header {
+    div {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+    h1{
+        font-size: 3rem;
+    }
+}
+
+//FORM
+form {
+    justify-content: center;
+}
+
+.card {
+    color: white;
+    text-shadow: 0px 0px 20px #242424;
+
+    h3 {
+        font-size: 1.8rem;
+    }
+
+    p {
+        font-size: 1.2rem;
+    }
+
+}
+
+
 
 // #app{
 //     display: flex;

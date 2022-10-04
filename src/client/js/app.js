@@ -90,3 +90,40 @@
 //     renderEntries();
 //     document.getElementById("new-entry").reset();
 //   });
+
+
+
+
+
+
+/* DRAFT OF THE LOGIC FOR JS FILES */
+// const apiobjectdata1;
+
+// export const nameOfFunction = async () => {    
+//     try {
+//         const res = await fetch()
+//         const data = await res.json()
+//         apiobjectdata1 = data
+//     } 
+//     catch (error) {
+//         console.log(error)
+//     }
+// }
+
+// async function {
+    
+//     apiobjectdata1
+// }
+
+
+
+
+
+
+// import { nameOfFunction } from "./js/event.js";
+
+// eventlisters 
+// const objfromAPIS = await nameOfFunction()
+//     try {
+    
+//     }
