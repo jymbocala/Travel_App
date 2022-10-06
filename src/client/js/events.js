@@ -1,16 +1,24 @@
-export function handleSubmit (e) {
-    e.preventDefault()
-    console.log("handleSubmit function called");
-    const btnEl = document.querySelector('#btn-el');
-    btnEl.addEventListener('click', async () => {
-        console.log("testing testing button clicked");
-    })
+
+btnEl.addEventListener('click', async () => {
+    console.log("button event listener called");
+    Client.geoNamesApi()
+})
+
+// function handleSubmit(event) {
+//     event.preventDefault()
+//     console.log("handleSubmit function called");
+// }
+
+// export { handleSubmit };
+
+const btnEl = document.getElementById('btn-el');
+
+function handleAddTrip() {
+    console.log("handleAddTrip function called + button called");
+    btnEl.addEventListener('click', Client.geoNamesApi);
 }
 
-
-
-
-
+export { handleAddTrip };
 
 
 
