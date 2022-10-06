@@ -8,7 +8,8 @@ module.exports = {
     devtool: 'source-map',
     entry: './src/client/index.js',
     output: {
-        path: path.resolve(__dirname, 'dist')
+        libraryTarget: "var",
+        library: "Client",
     },
     module: {
         rules: [
