@@ -1,7 +1,3 @@
-// USER INPUT
-const cityInput = document.getElementsByClassName('location-input').value;
-const dateInput = document.getElementsByClassName('date-input').value;
-
 // GEONAMES API
 let longitude  //data.geonames[0].lng; ??
 let latitude //data.geonames[0].lat; ??
@@ -23,7 +19,7 @@ export const geoNamesApi = async () => {
 }
 
 // WEATHERBIT API
-const weatherbitApiKey = "ea57d13fc83f470ba9d135ec79988803"; //need to hide the key
+const weatherbitApiKey = "ea57d13fc83f470ba9d135ec79988803"; //TODO: hide the key
 let weatherbitData
 
 export const weatherbitApi = async () => {
@@ -40,7 +36,7 @@ export const weatherbitApi = async () => {
 }
 
 // PIXABAY API
-const pixabayApiKey = "30078878-3aacf0d0b10bdf81d4923eea3"; //need to hide the key
+const pixabayApiKey = "30078878-3aacf0d0b10bdf81d4923eea3"; //TODO: hide the key
 let pixabayImg
 
 export const pixabayApi = async () => {
@@ -67,7 +63,6 @@ const day = hour * 24; // ?? should I just explicitly write the number of millis
 let timerId
 timerId = setInterval(countdown, day);
 
-
 function countdown() {
     const today = new Date();
     const tripDate = new Date(dateInput);
@@ -79,7 +74,7 @@ function countdown() {
         return
     } else if (timeLeft <= -0) {
         clearInterval(timerId);
-        // delete card
+        // TODO: add a function to remove the trip from the page
         return
     }
 
@@ -88,56 +83,12 @@ function countdown() {
     countdownEl.innerHTML = `${cityInput} is ${daysLeft} days away!`;
 }
 
-
-// POST DATA TO SERVER
-apiDatas = {
+// ALL API DATA INTO ONE OBJECT
+export let allApiData = {
     city: cityInput,
     country: country,
+    date: dateInput,
+    daysLeft: daysLeft,
     weather: weatherbitData,
-    img: pixabayImg,
-    countdown: daysLeft
+    img: pixabayImg
 }
-
-export const postData = async (url = "", data = {}) => {
-    console.log(data);
-    const response = await fetch(url, {
-        method: "POST",
-        credentials: "same-origin",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-    });
-    try {
-        const newData = await response.json();
-        return newData;
-    } catch (error) {
-        console.log("error", error);
-    }
-}
-
-// GET DATA FROM SERVER
-export const getData = async (url = "") => {
-    const request = await fetch(url);
-    try {
-        const data = await request.json();
-        return data;
-    } catch (error) {
-        console.log("error", error);
-    }
-}
-
-// UPDATE UI
-export const updateUI = async () => {
-    const request = await fetch("/all");
-    try {
-        const allData = await request.json();
-        document.getElementById("city").innerHTML = allData.city;
-        document.getElementById("country").innerHTML = allData.country;
-        document.getElementById("weather").innerHTML = allData.weather;
-        document.getElementById("img").innerHTML = allData.img;
-    } catch (error) {
-        console.log("error", error);
-    }
-}
-

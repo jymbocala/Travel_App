@@ -4,10 +4,10 @@ projectData = {};
 var path = require('path')
 const express = require('express');
 const app = express();
-const fetch = require('node-fetch');
 
 /* Dependencies */
 const bodyParser = require('body-parser')
+const fetch = require('node-fetch');
 
 /* Middleware*/
 //Here we are configuring express to use body-parser as middle-ware.
@@ -32,27 +32,28 @@ app.listen(8080, function () {
 })
 
 //DATABASE
-const entryData = []
+const tripsData = []
 
-// GET route
-app.get('/entries', getData);
+/* ROUTES */
+// GET ROUTE
+app.get('/trips', getData);
 
 function getData (req, res) {
-  res.send(entryData);
-  console.log(entryData)
+  res.send(tripsData);
+  console.log(tripsData);
 };
 
-// POST route
-app.post('/entries', addEntry);
+// POST ROUTE
+app.post('/trips', addTrip);
 
-function addEntry(req,res){
-    const newEntry = {
-      date: req.body.date,
-      temp: req.body.temp,
+function addTrip(req,res){
+    const newTrip = { // create new trip object
+      date: req.body.date, // get date from request body
+      temp: req.body.temp, 
       content: req.body.content
     }
   
-    res.send(newEntry)
-    entryData.unshift(newEntry)
-    console.log(entryData)
+    res.send(newTrip)
+    entryData.unshift(newTrip)
+    console.log(tripsData)
 };
