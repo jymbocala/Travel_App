@@ -4,6 +4,7 @@ projectData = {};
 var path = require('path')
 const express = require('express');
 const app = express();
+const fetch = require('node-fetch');
 
 /* Dependencies */
 const bodyParser = require('body-parser')
