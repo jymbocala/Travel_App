@@ -39,6 +39,7 @@ const tripsData = []
 app.get('/trips', getData);
 
 function getData (req, res) {
+  console.log("GET request received");
   res.send(tripsData);
   console.log(tripsData);
 };
@@ -46,14 +47,29 @@ function getData (req, res) {
 // POST ROUTE
 app.post('/trips', addTrip);
 
-function addTrip(req,res){
+function addTrip(req, res){
+    console.log("POST request received");
     const newTrip = { // create new trip object
-      date: req.body.date, // get date from request body
-      temp: req.body.temp, 
-      content: req.body.content
+      date: req.body.date,
+      city: req.body.city, 
+      country: req.body.country,
+      daysLeft: req.body.daysLeft,
+      weather: req.body.weather,
+      img: req.body.img,
     }
   
-    res.send(newTrip)
-    entryData.unshift(newTrip)
+    res.send(newTrip) // send new trip object to client
+    tripsData.unshift(newTrip) // add new trip object to tripsData array
     console.log(tripsData)
 };
+
+// DELETE ROUTE
+app.delete('/trips', deleteTrip);
+
+function deleteTrip(req, res){
+    console.log("DELETE request received");
+    const tripToDelete = req.body.id;
+    tripsData.splice(tripToDelete, 1);
+    res.send(tripsData);
+    console.log(tripsData);
+}

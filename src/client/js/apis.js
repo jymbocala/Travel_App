@@ -84,10 +84,10 @@ function countdown() {
 }
 
 // ALL API DATA INTO ONE OBJECT
-export let allApiData = {
+export const newApiData = {
+    date: dateInput,
     city: cityInput,
     country: country,
-    date: dateInput,
     daysLeft: daysLeft,
     weather: weatherbitData,
     img: pixabayImg

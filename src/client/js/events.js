@@ -1,4 +1,4 @@
-import { allApiData } from "./apis";
+import { newApiData } from "./apis";
 
 const tripsData = []
 
@@ -6,16 +6,23 @@ const tripsData = []
 const cityInput = document.getElementsByClassName('location-input').value;
 const dateInput = document.getElementsByClassName('date-input').value; // need a function to turn the date into string format
 
-// EVENT LISTENER
+// EVENT LISTENER FOR SUBMIT BUTTON
 document.getElementById('btn-el').addEventListener('click', async function (e) {
     e.preventDefault();
-
-    const data = allApiData
-
-    const trip = await postData("/trips", data);
-    tripsData.unshift(trip);
+    const data = newApiData 
+    const trip = await postData("/trips", data); 
+    tripsData.unshift(trip); 
     renderTrips();
-    document.getElementById("trip-cards").reset();
+});
+
+// EVENT LISTENER FOR DELETE BUTTON
+document.getElementById("delete-btn").addEventListener("click", async function (e) {
+    e.preventDefault(); 
+    const tripId = document.getElementById("trip-id").value; // how do I customize this to each trip card?
+    await deleteTrip(tripId); 
+    tripsData = tripsData.filter((trip) => trip.id !== tripId); 
+    renderTrips(); 
+    document.getElementById("delete-trip").reset(); // do I need this?
 });
 
 
@@ -24,7 +31,7 @@ function renderTrips() {
     let html
     for (let trip of tripsData) {
         html += `
-            <div class="card">
+            <div class="card" id="${trip.city}-trip">
                 <img src="${trip.imgURL}" class="card-img" alt="${trip.city}, ${trip.country} ">
                 <div class="card-img-overlay">
                     <h3 class="card-title mt-4">${trip.city}, ${trip.country}</h3>
@@ -35,6 +42,7 @@ function renderTrips() {
                         <br>Mostly cloudy throughout the day.
                     </p>
                     <p class="card-text" id="countdown">${trip.city} is ${trip.countdown} days away!</p>
+                    <button class="btn btn-danger" id="delete-btn">Delete</button>
                 </div>
             </div>
             `
@@ -43,7 +51,8 @@ function renderTrips() {
 }
 
 // POST DATA TO SERVER
-const postData = async (url = "", data = {}) => {
+const postData = async (url = "/trips", data = {}) => {
+    const data = newApiData
     console.log(data);
 
     const response = await fetch(url, {
@@ -55,29 +64,49 @@ const postData = async (url = "", data = {}) => {
         body: JSON.stringify(data),
     });
     try {
-        const newData = await response.json();
-        return newData;
+        const newData = await response.json(); // this is the data that is returned from the server
+        tripsData.unshift(newData); 
+        renderTrips(); 
+        document.getElementById("new-trip").reset();
+        return newData; // ?? do I need this?
     } catch (error) {
         console.log("error", error);
     }
 }
 
 // GET DATA FROM SERVER
-const getData = async (url = "") => {
+const getData = async (url = "/trips") => {
     const request = await fetch(url);
     try {
         // Transform into JSON
         const data = await request.json();
         return data;
     } catch (error) {
-        console.log("error", error);
+        console.log("error", error); 
     }
 }
 
-getData("/trips").then(function (res) {
-    tripsData = res;
-    renderTrips();
+getData("/trips").then(function (res) { // ? does this invoke when the page loads?
+    tripsData = res; 
+    renderTrips(); 
 });
+
+// DELETE DATA FROM SERVER AND PAGE
+const deleteTrip = async (url = "/trips") => {
+    const request = await fetch(url, {
+        method: "DELETE",
+        credentials: "same-origin",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    try {
+        const data = await request.json();
+        return data;
+    } catch (error) {
+        console.log("error", error);
+    }
+}
 
 
 
