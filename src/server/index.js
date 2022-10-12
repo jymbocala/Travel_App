@@ -1,13 +1,10 @@
-// Setup empty JS object to act as endpoint for all routes
-projectData = {};
-
 var path = require('path')
 const express = require('express');
 const app = express();
 
 /* Dependencies */
 const bodyParser = require('body-parser')
-const fetch = require('node-fetch');
+// const fetch = require('node-fetch');
 
 /* Middleware*/
 //Here we are configuring express to use body-parser as middle-ware.

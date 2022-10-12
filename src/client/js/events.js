@@ -1,30 +1,47 @@
-import { newApiData } from "./apis";
+import { pixabayApi, pixabayImg, weatherbitApi, geoNamesApi, countdown, daysLeft, country } from "./apis";
 
-const tripsData = []
+let tripsData = []
 
 // USER INPUT
-const cityInput = document.getElementsByClassName('location-input').value;
-const dateInput = document.getElementsByClassName('date-input').value; // need a function to turn the date into string format
 
 // EVENT LISTENER FOR SUBMIT BUTTON
-document.getElementById('btn-el').addEventListener('click', async function (e) {
+document.getElementById('btn-el').addEventListener('click', function (e) {
+    console.log("button clicked");
     e.preventDefault();
-    const data = newApiData 
-    const trip = await postData("/trips", data); 
-    tripsData.unshift(trip); 
-    renderTrips();
+    const cityInput = document.getElementsByClassName('location-input').value;
+    const dateInput = document.getElementsByClassName('date-input').value; // need a function to turn the date into string format
+    
+    // await pixabayApi();
+    // // make if statement
+    // await weatherbitApi();
+    // await geoNamesApi();
+    countdown();
+
+    const data = {
+        date: dateInput,
+        city: cityInput,
+        country: country,
+        daysLeft: daysLeft,
+        weather: weatherbitData,
+        img: pixabayImg
+    }
+    // const trip = await postData(data); 
+    // tripsData.unshift(trip); 
+    // renderTrips();
 });
 
 // EVENT LISTENER FOR DELETE BUTTON
-document.getElementById("delete-btn").addEventListener("click", async function (e) {
-    e.preventDefault(); 
-    const tripId = document.getElementById("trip-id").value; // how do I customize this to each trip card?
-    await deleteTrip(tripId); 
-    tripsData = tripsData.filter((trip) => trip.id !== tripId); 
-    renderTrips(); 
-    document.getElementById("delete-trip").reset(); // do I need this?
-});
+function addDeleteListener(element) {
 
+    element.addEventListener("click", async function (e) {
+        e.preventDefault(); 
+        const tripId = document.getElementById("trip-id").value; // how do I customize this to each trip card?
+        await deleteTrip(tripId); 
+        tripsData = tripsData.filter((trip) => trip.id !== tripId); 
+        renderTrips(); 
+        document.getElementById("delete-trip").reset(); // do I need this?
+});
+}
 
 // RENDER ALL TRIP DATA TO PAGE
 function renderTrips() {
@@ -42,20 +59,25 @@ function renderTrips() {
                         <br>Mostly cloudy throughout the day.
                     </p>
                     <p class="card-text" id="countdown">${trip.city} is ${trip.countdown} days away!</p>
-                    <button class="btn btn-danger" id="delete-btn">Delete</button>
+                    <button class="btn btn-danger delete-btn">Delete</button>
                 </div>
             </div>
             `
+        }
+    if (html) {
+        document.getElementById("trip-cards").innerHTML = html;
     }
-    document.getElementById('trip-cards').innerHTML = html
+    for (let trip of tripsData) {
+        const deleteBtnEl = document.querySelector(`#${trip.city}-trip .delete-btn`)[0]
+        addDeleteListener(deleteBtnEl);
+    }
 }
 
 // POST DATA TO SERVER
-const postData = async (url = "/trips", data = {}) => {
-    const data = newApiData
+const postData = async (data = {}) => {
     console.log(data);
 
-    const response = await fetch(url, {
+    const response = await fetch("//localhost:8080/trips", {
         method: "POST",
         credentials: "same-origin",
         headers: {
@@ -75,7 +97,7 @@ const postData = async (url = "/trips", data = {}) => {
 }
 
 // GET DATA FROM SERVER
-const getData = async (url = "/trips") => {
+const getData = async (url = "//localhost:8080/trips") => {
     const request = await fetch(url);
     try {
         // Transform into JSON
@@ -86,7 +108,7 @@ const getData = async (url = "/trips") => {
     }
 }
 
-getData("/trips").then(function (res) { // ? does this invoke when the page loads?
+getData().then(function (res) { // ? does this invoke when the page loads?
     tripsData = res; 
     renderTrips(); 
 });

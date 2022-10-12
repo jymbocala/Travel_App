@@ -1,7 +1,7 @@
 // GEONAMES API
-let longitude  //data.geonames[0].lng; ??
-let latitude //data.geonames[0].lat; ??
-let country //data.geonames[0].countryName; ??
+let longitude
+let latitude
+export let country 
 
 export const geoNamesApi = async () => {
     const res = await fetch(`http://api.geonames.org/searchJSON?q=${cityInput}&maxRows=10&username=jym_b`)
@@ -9,9 +9,10 @@ export const geoNamesApi = async () => {
         const data = await res.json();
         console.log("geoNamesApi function called");
         console.log(data);
-        // longitude = data.geonames[0].lng;
-        // latitude = data.geonames[0].lat;
-        // country = data.geonames[0].countryName;
+        longitude = data.geonames[0].lng;
+        latitude = data.geonames[0].lat;
+        country = data.geonames[0].countryName;
+        
     }
     catch(error) {
         console.log("error", error);
@@ -37,7 +38,7 @@ export const weatherbitApi = async () => {
 
 // PIXABAY API
 const pixabayApiKey = "30078878-3aacf0d0b10bdf81d4923eea3"; //TODO: hide the key
-let pixabayImg
+export let pixabayImg
 
 export const pixabayApi = async () => {
     const res = await fetch(`https://pixabay.com/api/?key=${pixabayApiKey}&q=${cityInput}&image_type=photo&orientation=horizontal`) 
@@ -53,27 +54,20 @@ export const pixabayApi = async () => {
 }
 
 // COUNTDOWN
-countdownEl = document.getElementById('countdown-el'); // is this incorrect?
+const countdownEl = document.getElementById('countdown-el');
 
-let daysLeft
-const second = 1000;
-const minute = second * 60;
-const hour = minute * 60;
-const day = hour * 24; // ?? should I just explicitly write the number of milliseconds in a day?
-let timerId
-timerId = setInterval(countdown, day);
+export let daysLeft
+const day = 1000 * 60 * 60 * 24;
 
-function countdown() {
+export function countdown() {
     const today = new Date();
     const tripDate = new Date(dateInput);
     const timeLeft = tripDate - today;
     
     if (timeLeft <= 0) {
         countdownEl.innerHTML = "Have a great trip!";
-        clearInterval(timerId);
         return
     } else if (timeLeft <= -0) {
-        clearInterval(timerId);
         // TODO: add a function to remove the trip from the page
         return
     }
@@ -81,14 +75,4 @@ function countdown() {
     daysLeft = Math.floor(timeLeft / day);
 
     countdownEl.innerHTML = `${cityInput} is ${daysLeft} days away!`;
-}
-
-// ALL API DATA INTO ONE OBJECT
-export const newApiData = {
-    date: dateInput,
-    city: cityInput,
-    country: country,
-    daysLeft: daysLeft,
-    weather: weatherbitData,
-    img: pixabayImg
 }
