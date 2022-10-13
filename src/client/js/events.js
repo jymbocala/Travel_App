@@ -1,22 +1,30 @@
-import { pixabayApi, pixabayImg, weatherbitApiWithin16Days, weatherbitApiOver16Days, geoNamesApi, countdown, daysLeft, country } from "./apis";
+import { pixabayApi, pixabayImg, weatherbitApiWithin16Days, weatherbitApiOver16Days, weatherbitData, geoNamesApi, countdown, daysLeft, country } from "./apis";
 
 let tripsData = []
 
 // USER INPUT
 
 // EVENT LISTENER FOR SUBMIT BUTTON
-document.getElementById('btn-el').addEventListener('click', function (e) {
+document.getElementById('btn-el').addEventListener('click', async function (e) {
     console.log("button clicked");
     e.preventDefault();
-    const cityInput = document.getElementsByClassName('location-input').value;
-    const dateInput = document.getElementsByClassName('date-input').value; // need a function to turn the date into string format
-    
-    // await pixabayApi();
-    // // make if statement
-    // await weatherbitApi();
-    // await geoNamesApi();
-    countdown();
 
+    const cityInput = document.getElementById("location-input").value; // repeaated in apis.js
+    const dateInput = document.getElementById("date").value; // need a function to turn the date into string format
+
+
+    await geoNamesApi();
+    await countdown();
+    console.log(daysLeft, "daysLeft");
+
+    // If statement to determine which API to use based on days left
+    if (daysLeft <= 16) {
+    await weatherbitApiWithin16Days();
+    } else {
+    await weatherbitApiOver16Days();
+    }
+
+    // await pixabayApi();
     const data = {
         date: dateInput,
         city: cityInput,
@@ -25,6 +33,10 @@ document.getElementById('btn-el').addEventListener('click', function (e) {
         weather: weatherbitData,
         img: pixabayImg
     }
+
+    console.log(data.weather);
+
+
     // const trip = await postData(data); 
     // tripsData.unshift(trip); 
     // renderTrips();
@@ -39,7 +51,7 @@ function addDeleteListener(element) {
         await deleteTrip(tripId); 
         tripsData = tripsData.filter((trip) => trip.id !== tripId); 
         renderTrips(); 
-        document.getElementById("delete-trip").reset(); // do I need this?
+        document.getElementById("delete-trip").reset();
 });
 }
 
@@ -56,7 +68,7 @@ function renderTrips() {
                     <p class="card-text">Typical weather for then is:
                         <br>High: ${trip.weather.max_temp}°C
                         <br>Low: ${trip.weather.min_temp}°C
-                        <br>Mostly cloudy throughout the day.
+                        <br>Weather conditions are described as: <span></span.
                     </p>
                     <p class="card-text" id="countdown">${trip.city} is ${trip.countdown} days away!</p>
                     <button class="btn btn-danger delete-btn">Delete</button>
@@ -104,7 +116,7 @@ const getData = async (url = "//localhost:8080/trips") => {
         const data = await request.json();
         return data;
     } catch (error) {
-        console.log("error", error); 
+        console.log("error", error);
     }
 }
 
