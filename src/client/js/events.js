@@ -1,4 +1,4 @@
-import { pixabayApi, pixabayImg, weatherbitApi, geoNamesApi, countdown, daysLeft, country } from "./apis";
+import { pixabayApi, pixabayImg, weatherbitApiWithin16Days, weatherbitApiOver16Days, geoNamesApi, countdown, daysLeft, country } from "./apis";
 
 let tripsData = []
 

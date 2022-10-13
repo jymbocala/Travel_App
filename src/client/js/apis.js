@@ -19,11 +19,13 @@ export const geoNamesApi = async () => {
     }
 }
 
+
 // WEATHERBIT API
-const weatherbitApiKey = "ea57d13fc83f470ba9d135ec79988803"; //TODO: hide the key
+const weatherbitApiKey = "ea57d13fc83f470ba9d135ec79988803";
 let weatherbitData
 
-export const weatherbitApi = async () => {
+// fetch weatherbit data if date is within 16 days
+export const weatherbitApiWithin16Days = async () => {
     const res = await fetch(`https://api.weatherbit.io/v2.0/forecast/daily?lat=${latitude}&lon=${longitude}&key=${weatherbitApiKey}`) // add if: &days=16 ???? or days over 16 to get different data
     try {
         const data = await res.json();
@@ -35,6 +37,21 @@ export const weatherbitApi = async () => {
         console.log("error", error);
     }
 }
+
+// fetch weatherbit data if date is beyond 16 days
+export const weatherbitApiOver16Days = async () => {
+    const res = await fetch(`https://api.weatherbit.io/v2.0/forecast/daily?lat=${latitude}&lon=${longitude}&key=${weatherbitApiKey}`) // add if: &days=16 ???? or days over 16 to get different data
+    try {
+        const data = await res.json();
+        console.log("weatherbitApi function called");
+        console.log(data);
+        return data;
+    }
+    catch(error) {
+        console.log("error", error);
+    }
+}
+
 
 // PIXABAY API
 const pixabayApiKey = "30078878-3aacf0d0b10bdf81d4923eea3"; //TODO: hide the key
