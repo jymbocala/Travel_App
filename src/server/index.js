@@ -1,3 +1,6 @@
+// Setup empty JS object to act as endpoint for all routes
+projectData = {}; // DO I NEED THIS???????
+
 var path = require('path')
 const express = require('express');
 const app = express();
@@ -15,24 +18,24 @@ app.use(bodyParser.json());
 const cors = require('cors');
 app.use(cors());
 
+// Initialize the main project folder
 app.use(express.static("dist"));
 
-console.log(__dirname)
+// console.log(__dirname)
 
-app.get('/', function (req, res) {
-  res.sendFile("dist/index.html");
-})
+// app.get('/', function (req, res) {
+//   res.sendFile("dist/index.html");
+// })
 
 // Setup Server
-app.listen(8080, function () {
-  console.log('Example app listening on port 8080!')
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!')
 })
 
 //DATABASE
-const tripsData = []
+const tripsData = [];
 
-/* ROUTES */
-// GET ROUTE
+// GET route
 app.get('/trips', getData);
 
 function getData (req, res) {
@@ -41,11 +44,12 @@ function getData (req, res) {
   console.log(tripsData);
 };
 
-// POST ROUTE
+// POST route
 app.post('/trips', addTrip);
 
 function addTrip(req, res){
     console.log("POST request received");
+
     const newTrip = { // create new trip object
       date: req.body.date,
       city: req.body.city, 
@@ -55,12 +59,13 @@ function addTrip(req, res){
       img: req.body.img,
     }
   
+    console.log(newTrip, "new trip - post request");
     res.send(newTrip) // send new trip object to client
     tripsData.unshift(newTrip) // add new trip object to tripsData array
-    console.log(tripsData)
+    console.log(tripsData, "tripsData after post request");
 };
 
-// DELETE ROUTE
+// DELETE route
 app.delete('/trips', deleteTrip);
 
 function deleteTrip(req, res){
@@ -69,4 +74,4 @@ function deleteTrip(req, res){
     tripsData.splice(tripToDelete, 1);
     res.send(tripsData);
     console.log(tripsData);
-}
+};

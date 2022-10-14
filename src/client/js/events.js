@@ -1,59 +1,6 @@
 import { pixabayApi, pixabayImg, weatherbitApiWithin16Days, weatherbitApiOver16Days, weatherbitData, geoNamesApi, countdown, daysLeft, country } from "./apis";
 
-let tripsData = []
-
-// USER INPUT
-
-// EVENT LISTENER FOR SUBMIT BUTTON
-document.getElementById('btn-el').addEventListener('click', async function (e) {
-    console.log("button clicked");
-    e.preventDefault();
-
-    const cityInput = document.getElementById("location-input").value; // repeaated in apis.js
-    const dateInput = document.getElementById("date").value; // need a function to turn the date into string format
-
-
-    await geoNamesApi();
-    await countdown();
-    console.log(daysLeft, "daysLeft");
-
-    // If statement to determine which API to use based on days left
-    if (daysLeft <= 16) {
-    await weatherbitApiWithin16Days();
-    } else {
-    await weatherbitApiOver16Days();
-    }
-
-    // await pixabayApi();
-    const data = {
-        date: dateInput,
-        city: cityInput,
-        country: country,
-        daysLeft: daysLeft,
-        weather: weatherbitData,
-        img: pixabayImg
-    }
-
-    console.log(data.weather);
-
-
-    // const trip = await postData(data); 
-    // tripsData.unshift(trip); 
-    // renderTrips();
-});
-
-// EVENT LISTENER FOR DELETE BUTTON
-function addDeleteListener(element) {
-
-    element.addEventListener("click", async function (e) {
-        e.preventDefault(); 
-        const tripId = document.getElementById("trip-id").value; // how do I customize this to each trip card?
-        await deleteTrip(tripId); 
-        tripsData = tripsData.filter((trip) => trip.id !== tripId); 
-        renderTrips(); 
-        document.getElementById("delete-trip").reset();
-});
-}
+let tripsData = [];
 
 // RENDER ALL TRIP DATA TO PAGE
 function renderTrips() {
@@ -79,17 +26,19 @@ function renderTrips() {
     if (html) {
         document.getElementById("trip-cards").innerHTML = html;
     }
+    $(document).ready(function() { // ?? do I need this?
     for (let trip of tripsData) {
         const deleteBtnEl = document.querySelector(`#${trip.city}-trip .delete-btn`)[0]
         addDeleteListener(deleteBtnEl);
     }
+    });
 }
 
 // POST DATA TO SERVER
-const postData = async (data = {}) => {
+const postData = async (url = "", data = {}) => {
     console.log(data);
 
-    const response = await fetch("//localhost:8080/trips", {
+    const response = await fetch(url, {
         method: "POST",
         credentials: "same-origin",
         headers: {
@@ -98,7 +47,7 @@ const postData = async (data = {}) => {
         body: JSON.stringify(data),
     });
     try {
-        const newData = await response.json(); // this is the data that is returned from the server
+        const newData = await response.json();
         tripsData.unshift(newData); 
         renderTrips(); 
         document.getElementById("new-trip").reset();
@@ -109,7 +58,7 @@ const postData = async (data = {}) => {
 }
 
 // GET DATA FROM SERVER
-const getData = async (url = "//localhost:8080/trips") => {
+const getData = async (url = "") => {
     const request = await fetch(url);
     try {
         // Transform into JSON
@@ -120,7 +69,7 @@ const getData = async (url = "//localhost:8080/trips") => {
     }
 }
 
-getData().then(function (res) { // ? does this invoke when the page loads?
+getData("/trips").then(function (res) { // ? does this invoke when the page loads?
     tripsData = res; 
     renderTrips(); 
 });
@@ -142,68 +91,54 @@ const deleteTrip = async (url = "/trips") => {
     }
 }
 
+// EVENT LISTENER FOR SUBMIT BUTTON
+
+document.getElementById('btn-el').addEventListener('click', async function (e) {
+    console.log("button clicked");
+    e.preventDefault();
+
+    const cityInput = document.getElementById("location-input").value; // repeaated in apis.js
+    const dateInput = document.getElementById("date").value; // need a function to turn the date into string format
+
+    await geoNamesApi();
+    countdown();
+
+    // If statement to determine which API to use based on days left
+    if (daysLeft <= 16) {
+    await weatherbitApiWithin16Days();
+    } else {
+    await weatherbitApiOver16Days();
+    }
+
+    await pixabayApi();
+
+    const data = {
+        date: dateInput,
+        city: cityInput,
+        country: country,
+        daysLeft: daysLeft,
+        weather: weatherbitData,
+        img: pixabayImg
+    }
+
+    // console.log(data.img);
 
 
+    const trip = await postData("/trips", data); 
+    tripsData.unshift(trip); 
+    renderTrips();
+});
 
 
+// EVENT LISTENER FOR DELETE BUTTON
+function addDeleteListener(element) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // EVENT LISTENER
-// export function handleSubmit(event) {
-//     event.preventDefault();
-//     console.log("button clicked");
-// }
-// export const handleSubmit = document
-//     .getElementById("btn")
-//     .addEventListener("click", async function (e) {
-//     e.preventDefault();
-    
-    // const entryDate = newDate;
-    // const entryContent = document.getElementById("feelings").value;
-    // const zipValue = document.getElementById("zip").value;
-    // const entryTemp = await getTemp(zipValue);
-
-    // const data = {
-    //     date: entryDate,
-    //     temp: entryTemp,
-    //     content: entryContent,
-    // };
-
-    // const entry = await postData("/entries", data);
-    // entryData.unshift(entry);
-    // renderEntries();
-    // document.getElementById("new-entry").reset();
-    // });
-
-// export { handleSubmit };
-
-
-// import { getLocation } from "./apis.js";
-
-// const objfromAPIS = await getLocation()
-//     try {
-//         document.getElementById("submit").addEventListener("click", function (e) {
-//             e.preventDefault();
-//             console.log("button clicked");
-//     })} 
-//     catch (error) {
-//         console.log(error)
-//     };
+    element.addEventListener("click", async function (e) {
+        e.preventDefault(); 
+        const tripId = document.getElementById("trip-id").value; // how do I customize this to each trip card?
+        await deleteTrip(tripId); 
+        tripsData = tripsData.filter((trip) => trip.id !== tripId); 
+        renderTrips(); 
+        document.getElementById("delete-trip").reset();
+});
+}

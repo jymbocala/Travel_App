@@ -7,7 +7,7 @@ import "./styles/header.scss";
 import { geoNamesApi } from "./js/apis.js";
 
 
-export { geoNamesApi };
+// export { geoNamesApi };
 
 // Import all of Bootstrap's JS
 import * as bootstrap from 'bootstrap'

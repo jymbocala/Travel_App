@@ -12,9 +12,7 @@ export const geoNamesApi = async () => {
         console.log("geoNamesApi function called");
         longitude = data.geonames[0].lng;
         latitude = data.geonames[0].lat;
-        country = data.geonames[0].countryName;
-        // console.log(longitude, latitude, country);
-        
+        country = data.geonames[0].countryName;        
     }
     catch(error) {
         console.log("error", error);
@@ -65,12 +63,13 @@ const pixabayApiKey = "30078878-3aacf0d0b10bdf81d4923eea3";
 export let pixabayImg
 
 export const pixabayApi = async () => {
-    const res = await fetch(`https://pixabay.com/api/?key=${pixabayApiKey}&q=${cityInput}&image_type=photo&orientation=horizontal`) 
+    const cityInput = document.getElementById("location-input").value; // ?? is there a way to not repeat this declaration?
+
+    const res = await fetch(`https://pixabay.com/api/?key=${pixabayApiKey}&q=${cityInput}+Australia&image_type=photo&orientation=horizontal`) 
     try {
         const data = await res.json();
         console.log("pixabayApi function called");
-        console.log();
-        pixabayImg = data.hits[0].largeImageURL;                                                        
+        pixabayImg = data.hits[0].largeImageURL;
     }
     catch(error) {
         console.log("error", error);
@@ -85,20 +84,19 @@ const day = 1000 * 60 * 60 * 24;
 
 export function countdown() {
     const dateInput = document.getElementById('date').value;  // format: yyyy-mm-dd
-    console.log(dateInput,"dateInput");
-    
+    const cityInput = document.getElementById("location-input").value; // ?? is there a way to not repeat this declaration?    
 
     const today = new Date(); // format: mm/dd/yyyy
     const tripDate = new Date(dateInput); // format: mm/dd/yyyy
     const timeLeft = tripDate - today;
 
-    if (timeLeft <= 0) {
-        countdownEl.innerHTML = "Have a great trip!";
-        return
-    } else if (timeLeft <= -0) {
-        // TODO: add a function to remove the trip from the page
-        return
-    }
+    // if (timeLeft <= 0) {
+    //     countdownEl.innerHTML = "Have a great trip!";
+    //     return
+    // } else if (timeLeft <= -0) {
+    //     // TODO: add a function to remove the trip from the page
+    //     return
+    // }
 
     daysLeft = Math.floor(timeLeft / day);
     // console.log(daysLeft, "daysLeft");
