@@ -43,7 +43,21 @@
 
         <!--TRIPS-->
         <div class="container border py-5 my-5" id="trip-cards">
-            
+            <div class="card" id="${trip.city}-trip">
+                <img src="https://pixabay.com/get/g96bf093fb3f44e3b1038193de8548a0e35951b73a857ac549b8a798862a691174b520dcdba50d2ab1ec2ad92a6548ad2b5c1f858436498e04b6ce7a6c12fe22d_1280.jpg" class="card-img" alt="${trip.city}, ${trip.country} ">
+                <div class="card-img-overlay">
+                    <h3 class="card-title mt-4">Melbourne, Australia</h3>
+                    <h4 class="card-title mt-3">22nd of October, 2022</h4>
+                    <p class="card-text">Weather for then is:
+                        <br>High: 20°C
+                        <br>Low: 13°C
+                    </p>
+                    <img src="https://www.weatherbit.io/static/img/icons/c02d.png" id="weather-icon" /> 
+                    <p id="weather-description">Few clouds</p>
+                    <p class="card-text" id="countdown">Melbourne is 14 days away!</p>
+                    <button class="btn btn-danger delete-btn">Delete</button>
+                </div>
+            </div>
         </div>
         
     </main>

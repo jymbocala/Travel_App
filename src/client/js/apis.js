@@ -23,6 +23,7 @@ export const geoNamesApi = async () => {
 // WEATHERBIT API
 const weatherbitApiKey = "ea57d13fc83f470ba9d135ec79988803";
 export let weatherbitData
+export let weatherIcon
 
 // fetch weatherbit data if date is within 16 days
 export const weatherbitApiWithin16Days = async () => {
@@ -34,6 +35,7 @@ export const weatherbitApiWithin16Days = async () => {
         console.log("weatherbitApiWithin16Days function called");
 
         weatherbitData = data.data.filter((day) => day.datetime === dateInput)[0];    
+        weatherIcon = weatherbitData.weather.icon;    
     }
     catch(error) {
         console.log("error", error);

@@ -1,4 +1,4 @@
-import { pixabayApi, pixabayImg, weatherbitApiWithin16Days, weatherbitApiOver16Days, weatherbitData, geoNamesApi, countdown, daysLeft, country } from "./apis";
+import { pixabayApi, pixabayImg, weatherbitApiWithin16Days, weatherbitApiOver16Days, weatherIcon, weatherbitData, geoNamesApi, countdown, daysLeft, country } from "./apis";
 
 let tripsData = [];
 
@@ -6,6 +6,25 @@ let tripsData = [];
 function renderTrips() {
     let html
     for (let trip of tripsData) {
+        if (trip.daysLeft < 16) {
+            html += `
+            <div class="card" id="${trip.city}-trip">
+                <img src="${trip.imgURL}" class="card-img" alt="${trip.city}, ${trip.country} ">
+                <div class="card-img-overlay">
+                    <h3 class="card-title mt-4">${trip.city}, ${trip.country}</h3>
+                    <h4 class="card-title mt-3">${trip.date}</h4>
+                    <p class="card-text">Weather for then is:
+                        <br>High: ${trip.weather.max_temp}°C
+                        <br>Low: ${trip.weather.min_temp}°C
+                    </p>
+                    <img src="https://www.weatherbit.io/static/img/icons/${weatherIcon}.png" /> 
+                    <p>${trip.weather.weather.description}</p>.
+                    <p class="card-text" id="countdown">${trip.city} is ${trip.countdown} days away!</p>
+                    <button class="btn btn-danger delete-btn">Delete</button>
+                </div>
+            </div>
+            `
+        } else {
         html += `
             <div class="card" id="${trip.city}-trip">
                 <img src="${trip.imgURL}" class="card-img" alt="${trip.city}, ${trip.country} ">
@@ -23,15 +42,16 @@ function renderTrips() {
             </div>
             `
         }
+
     if (html) {
         document.getElementById("trip-cards").innerHTML = html;
     }
-    $(document).ready(function() { // ?? do I need this?
+
     for (let trip of tripsData) {
         const deleteBtnEl = document.querySelector(`#${trip.city}-trip .delete-btn`)[0]
         addDeleteListener(deleteBtnEl);
     }
-    });
+    };
 }
 
 // POST DATA TO SERVER
@@ -118,6 +138,7 @@ document.getElementById('btn-el').addEventListener('click', async function (e) {
         country: country,
         daysLeft: daysLeft,
         weather: weatherbitData,
+        icon: weatherIcon,
         img: pixabayImg
     }
 

@@ -56,6 +56,7 @@ function addTrip(req, res){
       country: req.body.country,
       daysLeft: req.body.daysLeft,
       weather: req.body.weather,
+      icon: req.body.icon,
       img: req.body.img,
     }
   
