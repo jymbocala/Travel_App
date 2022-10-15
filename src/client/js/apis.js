@@ -67,7 +67,7 @@ export let pixabayImg
 export const pixabayApi = async () => {
     const cityInput = document.getElementById("location-input").value; // ?? is there a way to not repeat this declaration?
 
-    const res = await fetch(`https://pixabay.com/api/?key=${pixabayApiKey}&q=${cityInput}+Australia&image_type=photo&orientation=horizontal`) 
+    const res = await fetch(`https://pixabay.com/api/?key=${pixabayApiKey}&q=${cityInput}+${country}&image_type=photo&orientation=horizontal`) 
     try {
         const data = await res.json();
         console.log("pixabayApi function called");

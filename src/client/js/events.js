@@ -156,6 +156,7 @@ function addDeleteListener(element) {
 
     element.addEventListener("click", async function (e) {
         e.preventDefault(); 
+        console.log("delete button clicked");
         const tripId = document.getElementById("trip-id").value; // how do I customize this to each trip card?
         await deleteTrip(tripId); 
         tripsData = tripsData.filter((trip) => trip.id !== tripId); 
@@ -163,3 +164,9 @@ function addDeleteListener(element) {
         document.getElementById("delete-trip").reset();
 });
 }
+
+//DELETE ICON
+document.getElementById("delete-icon").addEventListener("click", async function(e) {
+    e.preventDefault();
+    console.log("delete button clicked");
+});
