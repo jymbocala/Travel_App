@@ -1,15 +1,12 @@
 // Import all of Bootstrap's CSS
 @import "~bootstrap/scss/bootstrap";
 
-
 //Customize Bootstrap's default variables
 $primary: #04293A;
 $secondary: #064663;
 $tertiary: #ECB365;
 $light: #F1F1F1;
 $dark: #100F0F;
-
-
 
 body{
     background: $light;
@@ -18,14 +15,14 @@ body{
     margin: 0;
     display: flex;
     flex-direction: column;
-    background-image: url('../../assets/bg-img.png');
+    background-image: url('../../assets/bg-img2-blur-3.png');
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
 }
 
 img.background{
-    -webkit-filter: blur(20px); /* Safari 6.0 - 9.0 */
+    -webkit-filter: blur(20px);
     filter: blur(20px);
 }
 
@@ -35,14 +32,15 @@ header {
         margin-bottom: 2rem;
     }
     h1{
+        width: 100%;
         font-size: 5rem;
         font-weight: 700;
-        color: $secondary;
+        color: $tertiary;
     }
 
     p {
         font-weight: 400;
-        color: $primary;
+        color: $light;
         margin-bottom: -10px;
     }
 }
@@ -52,11 +50,12 @@ form {
     justify-content: center;
 
     .input-group {
-        height: 50px;
+        height: 60px;
         
         label {
             font-weight: 500;
             background-color: $light;
+            border-right: $secondary solid 3px;
         }
 
         input {
@@ -66,95 +65,27 @@ form {
 
     #btn-el {
         color: $light;
-        width: 50px;
+        width: 60px;
         background-color: $secondary;
         border: transparent;
     }
 }
 
-// CARDS
-.card {
-    color: $light;
-    text-shadow: 2px 2px 4px #242424;
-    border: none;
-    ::shadow {
-        box-shadow: 20px 20px 20px #242424;
-    }
-    
-    .card-img-overlay {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-
-        .card-top {
-            display: flex;
-            justify-content: space-between;
-        }
-        
-        .card-weather {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-            align-self: flex-start;
-
-            .weather-title {
-                width: 100%;
-                text-align: right;
-                padding-bottom: 0.5rem;
-                margin-bottom: 0.5rem;
-                border-bottom: 2px solid white;
-            }
-
-            .weather-icon {
-                max-width: 50px;
-                max-height: 50px;
-            }
-
-            .temp{
-                margin: 0;
-                font-size: 1.5rem;
-                // margin-left: -5px;
-            }
-
-            .weather-description {
-                width: 100%;
-                text-align: right;
-                margin: 0;
-                margin-top: -5px;
-            }
-        }
-        .card-bottom {
-            display: flex;
-            justify-content: space-between;
-            // height: 50px;
-        
-            .countdown {
-                margin-top: -3.5rem;
-            }
-            
-            #delete-icon {
-                opacity: 80%;
-        
-                &:hover {
-                    opacity: 100%;
-                    cursor: pointer;
-                }
-            }
-        }
-    }
-}
-
 // FOOTER
 footer {
-    a {
-        color: $dark;
-        text-decoration: none;
-    }
-    
-    a:hover, a:focus {
-        color: $tertiary;
-        text-decoration: underline;
+    p {
+        font-size: 0.8rem;
+        color: $light;
+
+        a {
+            color: $light;
+            text-decoration: none;
+        }
+        
+        a:hover, a:focus {
+            color: $tertiary;
+            text-decoration: underline;
+        }
     }
 }
 

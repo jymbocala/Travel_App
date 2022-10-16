@@ -1,5 +1,5 @@
 // Setup empty JS object to act as endpoint for all routes
-projectData = {}; // DO I NEED THIS???????
+const projectData = {};
 
 var path = require('path')
 const express = require('express');
@@ -21,24 +21,18 @@ app.use(cors());
 // Initialize the main project folder
 app.use(express.static("dist"));
 
-// console.log(__dirname)
-
-// app.get('/', function (req, res) {
-//   res.sendFile("dist/index.html");
-// })
-
 // Setup Server
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!')
 })
 
 //DATABASE
-const tripsData = [];
+let tripsData = [];
 
 // GET route
 app.get('/trips', getData);
 
-function getData (req, res) {
+export function getData (req, res) {
   console.log("GET request received");
   res.send(tripsData);
   console.log(tripsData);
@@ -50,7 +44,7 @@ app.post('/trips', addTrip);
 function addTrip(req, res){
     console.log("POST request received");
 
-    const newTrip = { // create new trip object
+    const newTrip = {
       date: req.body.date,
       city: req.body.city, 
       country: req.body.country,
@@ -61,8 +55,8 @@ function addTrip(req, res){
     }
   
     console.log(newTrip, "new trip - post request");
-    res.send(newTrip) // send new trip object to client
-    tripsData.unshift(newTrip) // add new trip object to tripsData array
+    res.send(newTrip)
+    tripsData.unshift(newTrip)
     console.log(tripsData, "tripsData after post request");
 };
 

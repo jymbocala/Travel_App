@@ -4,7 +4,7 @@ let latitude
 export let country 
 
 export const geoNamesApi = async () => {
-    const cityInput = document.getElementById("location-input").value; // ?? is there a way to not repeat this declaration?
+    const cityInput = document.getElementById("location-input").value;
 
     const res = await fetch(`http://api.geonames.org/searchJSON?q=${cityInput}&maxRows=10&username=jym_b`)
     try {   
@@ -27,7 +27,7 @@ export let weatherIcon
 
 // fetch weatherbit data if date is within 16 days
 export const weatherbitApiWithin16Days = async () => {
-    const dateInput = document.getElementById('date').value;  // format: yyyy-mm-dd, repeated
+    const dateInput = document.getElementById('date').value;
 
     const res = await fetch(`https://api.weatherbit.io/v2.0/forecast/daily?lat=${latitude}&lon=${longitude}&key=${weatherbitApiKey}`)
     try {
@@ -44,7 +44,7 @@ export const weatherbitApiWithin16Days = async () => {
 
 // fetch weatherbit data if date is beyond 16 days
 export const weatherbitApiOver16Days = async () => {
-    const dateInput = document.getElementById('date').value;  // format: yyyy-mm-dd
+    const dateInput = document.getElementById('date').value;
     const monthAndDay = dateInput.slice(5, 10);
     
     const res = await fetch(`https://api.weatherbit.io/v2.0/normals?lat=${latitude}&lon=${longitude}&start_day=${monthAndDay}&end_day=${monthAndDay}&tp=daily&key=${weatherbitApiKey}`)
@@ -65,7 +65,7 @@ const pixabayApiKey = "30078878-3aacf0d0b10bdf81d4923eea3";
 export let pixabayImg
 
 export const pixabayApi = async () => {
-    const cityInput = document.getElementById("location-input").value; // ?? is there a way to not repeat this declaration?
+    const cityInput = document.getElementById("location-input").value;
 
     const res = await fetch(`https://pixabay.com/api/?key=${pixabayApiKey}&q=${cityInput}+${country}&image_type=photo&orientation=horizontal`) 
     try {
@@ -85,23 +85,12 @@ export let daysLeft
 const day = 1000 * 60 * 60 * 24;
 
 export function countdown() {
-    const dateInput = document.getElementById('date').value;  // format: yyyy-mm-dd
-    const cityInput = document.getElementById("location-input").value; // ?? is there a way to not repeat this declaration?    
+    const dateInput = document.getElementById('date').value;
+    const cityInput = document.getElementById("location-input").value;
 
-    const today = new Date(); // format: mm/dd/yyyy
-    const tripDate = new Date(dateInput); // format: mm/dd/yyyy
+    const today = new Date();
+    const tripDate = new Date(dateInput);
     const timeLeft = tripDate - today;
 
-    // if (timeLeft <= 0) {
-    //     countdownEl.innerHTML = "Have a great trip!";
-    //     return
-    // } else if (timeLeft <= -0) {
-    //     // TODO: add a function to remove the trip from the page
-    //     return
-    // }
-
     daysLeft = Math.floor(timeLeft / day);
-    // console.log(daysLeft, "daysLeft");
-
-    // countdownEl.innerHTML = `${cityInput} is ${daysLeft} days away!`;
 }

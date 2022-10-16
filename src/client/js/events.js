@@ -4,61 +4,74 @@ let tripsData = [];
 
 // RENDER ALL TRIP DATA TO PAGE
 function renderTrips() {
-    let html
+    let html = "";
     for (let trip of tripsData) {
         if (trip.daysLeft < 16) {
             html += `
             <div class="card" id="${trip.city}-trip">
-                <img src="${trip.imgURL}" class="card-img" alt="${trip.city}, ${trip.country} ">
+                <img src="${trip.img}" class="card-img" alt="${trip.city}, ${trip.country} ">
                 <div class="card-img-overlay">
-                    <h3 class="card-title mt-4">${trip.city}, ${trip.country}</h3>
-                    <h4 class="card-title mt-3">${trip.date}</h4>
-                    <p class="card-text">Weather for then is:
-                        <br>High: ${trip.weather.max_temp}°C
-                        <br>Low: ${trip.weather.min_temp}°C
-                    </p>
-                    <img src="https://www.weatherbit.io/static/img/icons/${weatherIcon}.png" /> 
-                    <p>${trip.weather.weather.description}</p>.
-                    <p class="card-text" id="countdown">${trip.city} is ${trip.countdown} days away!</p>
-                    <button class="btn btn-danger delete-btn">Delete</button>
+                    <div class="card-top">
+                        <div class="card-heading col-10">
+                            <h2 class="card-title mt-3">${trip.city}, ${trip.country}</h2>
+                            <h4 class="card-title mt-3">${trip.date}</h4>
+                        </div>
+                        <div class="card-weather col-2">
+                            <h6 class="weather-title">Expected weather</h6>
+                            <img src="https://www.weatherbit.io/static/img/icons/${trip.icon}.png" class="weather-icon" /> 
+                            <p class="temp">${trip.weather.max_temp}</p>
+                            <p class="weather-description">${trip.weather.weather.description}</p>
+                        </div>
+                    </div>
+                    <div class="card-bottom">
+                        <div></div>
+                        <h5 class="card-text countdown">${trip.city} is ${trip.daysLeft} days away!</h5>
+                        <i class="fa-regular fa-trash-can delete-icon" data-city="${trip.city}"></i>
+                    </div>
                 </div>
             </div>
             `
         } else {
         html += `
             <div class="card" id="${trip.city}-trip">
-                <img src="${trip.imgURL}" class="card-img" alt="${trip.city}, ${trip.country} ">
+            <img src="${trip.img}" class="card-img" alt="${trip.city}, ${trip.country} ">
                 <div class="card-img-overlay">
-                    <h3 class="card-title mt-4">${trip.city}, ${trip.country}</h3>
-                    <h4 class="card-title mt-3">${trip.date}</h4>
-                    <p class="card-text">Typical weather for then is:
-                        <br>High: ${trip.weather.max_temp}°C
-                        <br>Low: ${trip.weather.min_temp}°C
-                        <br>Weather conditions are described as: <span></span.
-                    </p>
-                    <p class="card-text" id="countdown">${trip.city} is ${trip.countdown} days away!</p>
-                    <button class="btn btn-danger delete-btn">Delete</button>
+                    <div class="card-top">
+                        <div class="card-heading col-10">
+                            <h2 class="card-title mt-3">${trip.city}, ${trip.country}</h2>
+                            <h4 class="card-title mt-3">${trip.date}</h4>
+                        </div>
+                        <div class="card-weather col-2">
+                            <h6 class="weather-title">Typical temp for then is:</h6> 
+                            <p class="temp">${trip.weather.max_temp}</p>
+                        </div>
+                    </div>
+                    <div class="card-bottom">
+                        <div></div>
+                        <h5 class="card-text countdown">${trip.city} is ${trip.daysLeft} days away!</h5>
+                        <i class="fa-regular fa-trash-can delete-icon" data-city="${trip.city}"></i>
+                    </div>
                 </div>
             </div>
             `
         }
-
+    }
+    
     if (html) {
         document.getElementById("trip-cards").innerHTML = html;
     }
 
     for (let trip of tripsData) {
-        const deleteBtnEl = document.querySelector(`#${trip.city}-trip .delete-btn`)[0]
+        const deleteBtnEl = document.querySelector(`#${trip.city}-trip .delete-icon`);
         addDeleteListener(deleteBtnEl);
     }
-    };
-}
+};
 
 // POST DATA TO SERVER
-const postData = async (url = "", data = {}) => {
+const postData = async (data = {}) => {
     console.log(data);
 
-    const response = await fetch(url, {
+    const response = await fetch("//localhost:3000/trips", {
         method: "POST",
         credentials: "same-origin",
         headers: {
@@ -68,18 +81,15 @@ const postData = async (url = "", data = {}) => {
     });
     try {
         const newData = await response.json();
-        tripsData.unshift(newData); 
-        renderTrips(); 
-        document.getElementById("new-trip").reset();
-        return newData; // ?? do I need this?
+        return newData;
     } catch (error) {
         console.log("error", error);
     }
 }
 
 // GET DATA FROM SERVER
-const getData = async (url = "") => {
-    const request = await fetch(url);
+const getData = async () => {
+    const request = await fetch("//localhost:3000/trips");
     try {
         // Transform into JSON
         const data = await request.json();
@@ -89,14 +99,14 @@ const getData = async (url = "") => {
     }
 }
 
-getData("/trips").then(function (res) { // ? does this invoke when the page loads?
+getData().then(function (res) {
     tripsData = res; 
     renderTrips(); 
 });
 
 // DELETE DATA FROM SERVER AND PAGE
-const deleteTrip = async (url = "/trips") => {
-    const request = await fetch(url, {
+const deleteTrip = async () => {
+    const request = await fetch("//localhost:3000/trips", {
         method: "DELETE",
         credentials: "same-origin",
         headers: {
@@ -112,13 +122,13 @@ const deleteTrip = async (url = "/trips") => {
 }
 
 // EVENT LISTENER FOR SUBMIT BUTTON
-
+export function addSubmitListener(){
 document.getElementById('btn-el').addEventListener('click', async function (e) {
     console.log("button clicked");
     e.preventDefault();
 
-    const cityInput = document.getElementById("location-input").value; // repeaated in apis.js
-    const dateInput = document.getElementById("date").value; // need a function to turn the date into string format
+    const cityInput = document.getElementById("location-input").value;
+    const dateInput = document.getElementById("date").value;
 
     await geoNamesApi();
     countdown();
@@ -142,31 +152,22 @@ document.getElementById('btn-el').addEventListener('click', async function (e) {
         img: pixabayImg
     }
 
-    // console.log(data.img);
-
-
-    const trip = await postData("/trips", data); 
+    const trip = await postData(data); 
     tripsData.unshift(trip); 
     renderTrips();
+    document.getElementById("new-trip").reset();
 });
+}
 
 
 // EVENT LISTENER FOR DELETE BUTTON
 function addDeleteListener(element) {
-
     element.addEventListener("click", async function (e) {
         e.preventDefault(); 
         console.log("delete button clicked");
-        const tripId = document.getElementById("trip-id").value; // how do I customize this to each trip card?
-        await deleteTrip(tripId); 
-        tripsData = tripsData.filter((trip) => trip.id !== tripId); 
+        const tripCity = e.target.getAttribute("data-city");
+        
+        tripsData =  await deleteTrip(tripCity);; 
         renderTrips(); 
-        document.getElementById("delete-trip").reset();
 });
 }
-
-//DELETE ICON
-document.getElementById("delete-icon").addEventListener("click", async function(e) {
-    e.preventDefault();
-    console.log("delete button clicked");
-});
