@@ -79,8 +79,6 @@ export const pixabayApi = async () => {
 }
 
 // COUNTDOWN
-const countdownEl = document.getElementById('countdown-el');
-
 export let daysLeft
 const day = 1000 * 60 * 60 * 24;
 

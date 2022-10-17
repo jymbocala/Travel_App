@@ -67,5 +67,19 @@
         <div class="snowflake">❆</div>
         <div class="snowflake">❄</div>
     </div>
+
+    <script>
+        // Check that service workers are supported
+        if ('serviceWorker' in navigator) {
+            // Use the window load event to keep the page load performant
+            window.addEventListener('load', () => {
+                try {
+                    navigator.serviceWorker.register('/service-worker.js');
+                } catch (err) {
+                    console.log('😥 Service worker registration failed: ', err);
+                }
+            });
+        }
+    </script>
 </body>
 </html>

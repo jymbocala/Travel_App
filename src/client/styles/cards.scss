@@ -1,8 +1,12 @@
 // CARDS
+$light: #F1F1F1;
+
 .card {
     color: $light;
     text-shadow: 2px 2px 4px #242424;
     border: none;
+    margin-bottom: 2rem;
+
     ::shadow {
         box-shadow: 20px 20px 20px #242424;
     }

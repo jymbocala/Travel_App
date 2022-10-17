@@ -22,8 +22,8 @@ app.use(cors());
 app.use(express.static("dist"));
 
 // Setup Server
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
+app.listen(5000, function () {
+  console.log('Example app listening on port 5000!')
 })
 
 //DATABASE
@@ -32,7 +32,7 @@ let tripsData = [];
 // GET route
 app.get('/trips', getData);
 
-export function getData (req, res) {
+function getData (req, res) {
   console.log("GET request received");
   res.send(tripsData);
   console.log(tripsData);
