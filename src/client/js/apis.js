@@ -1,3 +1,5 @@
+const fetch = require('node-fetch');
+
 // GEONAMES API
 let longitude
 let latitude

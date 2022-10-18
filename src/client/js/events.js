@@ -1,12 +1,15 @@
+const fetch = require("node-fetch");
+
 import { pixabayApi, pixabayImg, weatherbitApiWithin16Days, weatherbitApiOver16Days, weatherIcon, weatherbitData, geoNamesApi, countdown, daysLeft, country } from "./apis";
 
 let tripsData = [];
 
 // EVENT LISTENER FOR SUBMIT BUTTON
-export function addSubmitListener(){
+
+function addSubmitListener(){
 document.getElementById('btn-el').addEventListener('click', async function (e) {
-    console.log("button clicked");
     e.preventDefault();
+    console.log("button clicked");
 
     const cityInput = document.getElementById("location-input").value;
     const dateInput = document.getElementById("date").value;
@@ -40,21 +43,20 @@ document.getElementById('btn-el').addEventListener('click', async function (e) {
 });
 }
 
-
 // EVENT LISTENER FOR DELETE BUTTON
 function addDeleteListener(element) {
     element.addEventListener("click", async function (e) {
         e.preventDefault(); 
         console.log("delete button clicked");
         const tripCity = e.target.getAttribute("data-city");
-        
+        console.log(tripCity);
         tripsData =  await deleteTrip(tripCity);; 
         renderTrips(); 
 });
 }
 
 // RENDER ALL TRIP DATA TO PAGE
-function renderTrips() {
+export function renderTrips() {
     let html = "";
     for (let trip of tripsData) {
         if (trip.daysLeft < 16) {
@@ -171,6 +173,3 @@ const deleteTrip = async () => {
         console.log("error", error);
     }
 }
-
-
-console.log("Hello from the client side");
