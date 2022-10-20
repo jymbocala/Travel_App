@@ -1,5 +1,5 @@
 {
-  "name": "travel-app-frontend",
+  "name": "travel-app",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     ]
   },
   "keywords": [],
-  "author": "",
+  "author": "jym bocala",
   "license": "ISC",
   "description": "",
   "dependencies": {

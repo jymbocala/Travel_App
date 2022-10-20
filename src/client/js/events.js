@@ -1,4 +1,3 @@
-// const fetch = require("node-fetch");
 const fetch = require('isomorphic-unfetch')
 
 import { pixabayApi, pixabayImg, weatherbitApiWithin16Days, weatherbitApiOver16Days, weatherIcon, weatherbitData, geoNamesApi, countdown, daysLeft, country } from "./apis";

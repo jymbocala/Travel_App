@@ -3,7 +3,6 @@ import "./styles/base.scss";
 import "./styles/cards.scss";
 
 import { handleSubmit } from "./js/events";
-// addSubmitListener();
 
 // Import all of Bootstrap's JS
 import * as bootstrap from 'bootstrap'
@@ -13,13 +12,13 @@ const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstra
 
 
 // Check that service workers are supported
-// if ('serviceWorker' in navigator) {
-//     // Use the window load event to keep the page load performant
-//     window.addEventListener('load', () => {
-//         try {
-//             navigator.serviceWorker.register('/service-worker.js');
-//         } catch (err) {
-//             console.log('😥 Service worker registration failed: ', err);
-//         }
-//     });
-// }
+if ('serviceWorker' in navigator) {
+    // Use the window load event to keep the page load performant
+    window.addEventListener('load', () => {
+        try {
+            navigator.serviceWorker.register('/service-worker.js');
+        } catch (err) {
+            console.log('😥 Service worker registration failed: ', err);
+        }
+    });
+}
