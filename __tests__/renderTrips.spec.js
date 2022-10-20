@@ -1,8 +1,12 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import "regenerator-runtime/runtime";
 
 // CLIENT TESTS
 // Import the js file to test
-import { renderTrips } from "../src/client/js/events";
+import { renderTrips } from "../src/client/js/renderTrips";
 
 // The describe() function takes two arguments - a string description, and a test suite as a callback function.  
 // A test suite may contain one or more related tests    
@@ -14,4 +18,4 @@ describe("Testing the submit functionality", () => {
         // The expect() function, in combination with a Jest matcher, is used to check if the function produces the expected output
         // The general syntax is `expect(myFunction(arg1, arg2, ...)).toEqual(expectedValue);`, where `toEqual()` is a matcher
         await expect(renderTrips).toBeDefined()
-    })});
+})});

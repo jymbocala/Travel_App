@@ -27,7 +27,7 @@ let tripsData = [];
 // GET route
 app.get('/trips', getData);
 
-export function getData (req, res) {
+function getData (req, res) {
   console.log("GET request received");
   res.send(tripsData);
   console.log(tripsData);
@@ -65,3 +65,5 @@ function deleteTrip(req, res){
     res.send(tripsData);
     console.log(tripsData);
 };
+
+exports.getData = getData;

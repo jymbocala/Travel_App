@@ -2,8 +2,10 @@ import "regenerator-runtime/runtime";
 
 
 // Import the js file to test
-import { getData } from "../src/server/index";
-// const { getData } = require("../src/server/index");
+// import { getData } from "../src/server/index";
+const getData = require("../src/server/index");
+// const user = require('./user');
+
 
 // The describe() function takes two arguments - a string description, and a test suite as a callback function.  
 // A test suite may contain one or more related tests    
