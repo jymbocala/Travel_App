@@ -1,5 +1,7 @@
 # tripscards
 
+![Tripcards App!](src/assets/screely-1666257219848.png "Tripcards App")
+
 ## Table of Contents
 
 * [Project Description](#project-description)
