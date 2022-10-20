@@ -1,4 +1,4 @@
-import { tripsData, addDeleteListener, handleSubmit } from './events.js';
+import { tripsData, addDeleteListener } from './events.js';
 
 // RENDER ALL TRIP DATA TO PAGE
 export function renderTrips() {
