@@ -55,9 +55,11 @@ export function addDeleteListener(element) {
         console.log("delete button clicked");
         const tripCity = e.target.getAttribute("data-city");
         console.log(tripCity);
-        tripsData =  await deleteTrip(tripCity);; 
+        tripsData =  await deleteTrip(tripCity);
+        console.log(tripsData); // comes back with an empty array
+        location.reload();
         renderTrips(); 
-});
+    });
 }
 
 

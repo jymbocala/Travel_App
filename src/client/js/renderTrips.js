@@ -60,7 +60,7 @@ export function renderTrips() {
     }
 
     for (let trip of tripsData) {
-        const deleteBtnEl = document.querySelector(`#${trip.city}-trip .delete-icon`);
+        const deleteBtnEl = document.querySelector(`#${trip.city}-trip`);
         addDeleteListener(deleteBtnEl);
     }
 };
