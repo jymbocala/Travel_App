@@ -43,7 +43,7 @@ export async function handleSubmit(e) {
 
     const trip = await postData(data); 
     tripsData.unshift(trip); 
-    renderTrips();
+    renderTrips(tripsData);
     document.getElementById("new-trip").reset();
 };
 
@@ -56,9 +56,8 @@ export function addDeleteListener(element) {
         const tripCity = e.target.getAttribute("data-city");
         console.log(tripCity);
         tripsData =  await deleteTrip(tripCity);
-        console.log(tripsData); // comes back with an empty array
-        location.reload();
-        renderTrips(); 
+        console.log(tripsData);
+        renderTrips(tripsData); 
     });
 }
 
@@ -93,12 +92,13 @@ const getData = async () => {
     } catch (error) {
         console.log("error", error);
     }
-}
+};
 
 getData().then(function (res) {
     tripsData = res; 
-    renderTrips(); 
+    renderTrips(tripsData); 
 });
+
 
 // DELETE DATA FROM SERVER AND PAGE
 const deleteTrip = async () => {
@@ -115,4 +115,4 @@ const deleteTrip = async () => {
     } catch (error) {
         console.log("error", error);
     }
-}
+};

@@ -1,12 +1,13 @@
 import { tripsData, addDeleteListener } from './events.js';
 
 // RENDER ALL TRIP DATA TO PAGE
-export function renderTrips() {
+export function renderTrips(tripsData) {
+    console.log(tripsData,  "this is tripsData within renderTrips");
     let html = "";
     for (let trip of tripsData) {
-        if (trip.daysLeft < 16) {
+        if (trip.daysLeft < 17) {
             html += `
-            <div class="card" id="${trip.city}-trip">
+            <div class="card" id="${trip.city.replaceAll(" ", "")}-trip">
                 <img src="${trip.img}" class="card-img" alt="${trip.city}, ${trip.country} ">
                 <div class="card-img-overlay">
                     <div class="card-top">
@@ -31,7 +32,7 @@ export function renderTrips() {
             `
         } else {
         html += `
-            <div class="card" id="${trip.city}-trip">
+            <div class="card" id="${trip.city.replaceAll(" ", "")}-trip">
             <img src="${trip.img}" class="card-img" alt="${trip.city}, ${trip.country} ">
                 <div class="card-img-overlay">
                     <div class="card-top">
@@ -54,13 +55,11 @@ export function renderTrips() {
             `
         }
     }
-    
-    if (html) {
-        document.getElementById("trip-cards").innerHTML = html;
-    }
 
+    document.getElementById("trip-cards").innerHTML = html;
+    
     for (let trip of tripsData) {
-        const deleteBtnEl = document.querySelector(`#${trip.city}-trip`);
+        const deleteBtnEl = document.querySelector(`#${trip.city.replaceAll(" ", "")}-trip`);
         addDeleteListener(deleteBtnEl);
     }
-};
+}
