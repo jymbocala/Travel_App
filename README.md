@@ -1,21 +1,22 @@
 # tripscards
 
-![Tripcards App!](src/assets/screely-1666257219848.png "Tripcards App")
+![Tripcards App!](src/assets/tripcards.gif "Tripcards App")
 
 ## Table of Contents
 
-* [Project Description](#project-description)
-* [Instructions](#instructions)
+* [Description](#description)
+* [Questtions I Encountered](#questions-i-encountered)
 * [Technologies Used](#technologies-used)
 
-## Project Description
+## Description
 
 Extracting data sources from multiple APIs, this is a dynamic travel weather planning application that helps people plan trips by generating weather forecasts for the places they’re visiting.
 
-This project aimed to give me the opportunity to put all of the skills I have learned into one project to build my own custom travel app. I will be targeting the DOM, working with objects, and retrieving data from 3 APIs in which one of those is reliant on another to work. Also, this is all going to be done in a Webpack environment, using an express server, and wrapped up with service workers.
+After finishing Udacity's [Frontend Web Developer Nanodegree](https://graduation.udacity.com/api/graduation/certificate/PDFJSY3R/download), this project aimed to give me the opportunity to put all of the skills I have learned into one project to build my own custom travel app called **'tripcards'**. 
 
+I will be targeting the DOM, working with objects, and retrieving data from 3 APIs in which one of those is reliant on another to work. Also, this is all going to be done in a Webpack environment, using an express server, and wrapped up with service workers.
 
-## Questions I encountered
+## Questions I Encountered
 
 The following are just some of the questions that I've experienced along the way:
 
