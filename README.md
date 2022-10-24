@@ -1,6 +1,9 @@
 # tripscards
+<div align="center">
+  <img src="src/assets/tripcards.gif">
+</div>
 
-![Tripcards App!](src/assets/tripcards.gif "Tripcards App")
+<!-- ![Tripcards App!](src/assets/tripcards.gif "Tripcards App") -->
 
 ## Table of Contents
 
